@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>M POPAL TECH • 360° EARTH</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#01030a;
+    font-family:Arial,Helvetica,sans-serif;
+    touch-action:none;
+}
+
+#space{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+
+    background:
+      radial-gradient(circle at 50% 50%,
+        rgba(0,180,255,.13),
+        transparent 32%),
+      radial-gradient(circle at 15% 15%,
+        rgba(0,120,255,.10),
+        transparent 25%),
+      radial-gradient(circle at 85% 85%,
+        rgba(255,0,210,.09),
+        transparent 28%),
+      #01030a;
+}
+
+/* STAR FIELD */
+
+.stars,
+.stars2{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+.stars{
+    background-image:
+      radial-gradient(circle,white 1px,transparent 1.5px);
+    background-size:90px 90px;
+    opacity:.45;
+}
+
+.stars2{
+    background-image:
+      radial-gradient(circle,#62eaff 1px,transparent 1.5px);
+    background-size:155px 155px;
+    background-position:35px 70px;
+    opacity:.30;
+}
+
+/* HEADER */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:76px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 25px;
+
+    z-index:20;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0,0,0,.72),
+        transparent
+      );
+
+    backdrop-filter:blur(8px);
+}
+
+.logo{
+    color:white;
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:6px;
+
+    text-shadow:
+      0 0 7px white,
+      0 0 16px #00d9ff,
+      0 0 27px #ff00d9;
+}
+
+.menu{
+    width:44px;
+    height:44px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.55);
+
+    background:rgba(255,255,255,.05);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+
+    cursor:pointer;
+}
+
+.menu span{
+    width:17px;
+    height:1px;
+    background:white;
+
+    box-shadow:0 0 8px white;
+}
+
+/* 3D CONTAINER */
+
+#earth-container{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:5;
+}
+
+/* NEON AURA */
+
+.aura{
+    position:absolute;
+
+    width:min(82vw,720px);
+    height:min(82vw,720px);
+
+    max-width:76vh;
+    max-height:76vh;
+
+    border-radius:50%;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(0,190,255,.22),
+        transparent 62%
+      );
+
+    filter:blur(22px);
+
+    animation:auraPulse 4s ease-in-out infinite alternate;
+
+    pointer-events:none;
+}
+
+@keyframes auraPulse{
+    from{
+        transform:scale(.94);
+        opacity:.65;
+    }
+    to{
+        transform:scale(1.07);
+        opacity:1;
+    }
+}
+
+/* WHITE EDGE RING */
+
+.edge{
+    position:absolute;
+
+    width:min(80vw,700px);
+    height:min(80vw,700px);
+
+    max-width:74vh;
+    max-height:74vh;
+
+    border-radius:50%;
+
+    border:2px solid rgba(255,255,255,.78);
+
+    box-shadow:
+      0 0 7px white,
+      0 0 18px rgba(255,255,255,.75),
+      0 0 35px rgba(0,210,255,.55),
+      0 0 65px rgba(255,0,210,.20);
+
+    pointer-events:none;
+    z-index:8;
+}
+
+/* EXTRA RINGS */
+
+.ring{
+    position:absolute;
+
+    width:min(91vw,790px);
+    height:min(27vw,230px);
+
+    max-width:82vh;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.42);
+
+    box-shadow:
+      0 0 8px rgba(255,255,255,.55),
+      0 0 20px rgba(0,210,255,.40);
+
+    transform:rotate(-17deg);
+
+    pointer-events:none;
+}
+
+.ring2{
+    position:absolute;
+
+    width:min(94vw,820px);
+    height:min(35vw,290px);
+
+    max-width:86vh;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,0,210,.27);
+
+    box-shadow:
+      0 0 20px rgba(255,0,210,.18);
+
+    transform:rotate(18deg);
+
+    pointer-events:none;
+}
+
+/* LABEL */
+
+.degree{
+    position:absolute;
+
+    bottom:calc(50% - min(42vw,360px) - 45px);
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    color:white;
+
+    font-size:11px;
+    letter-spacing:7px;
+
+    text-shadow:
+      0 0 8px white,
+      0 0 20px #00d9ff;
+
+    z-index:10;
+}
+
+/* HELP TEXT */
+
+.hint{
+    position:fixed;
+
+    left:50%;
+    bottom:25px;
+
+    transform:translateX(-50%);
+
+    color:#aeb7c2;
+
+    font-size:9px;
+    letter-spacing:3px;
+
+    white-space:nowrap;
+
+    text-shadow:
+      0 0 10px rgba(0,210,255,.5);
+
+    z-index:15;
+}
+
+/* MENU PANEL */
+
+.panel{
+    position:fixed;
+
+    top:0;
+    right:-100%;
+
+    width:min(380px,88vw);
+    height:100vh;
+
+    z-index:100;
+
+    padding:110px 32px;
+
+    background:
+      rgba(2,5,15,.97);
+
+    backdrop-filter:blur(25px);
+
+    border-left:
+      1px solid rgba(255,255,255,.35);
+
+    box-shadow:
+      -10px 0 50px rgba(0,0,0,.7),
+      -3px 0 25px rgba(0,210,255,.18);
+
+    transition:right .45s ease;
+}
+
+.panel.open{
+    right:0;
+}
+
+.close{
+    position:absolute;
+
+    top:25px;
+    right:25px;
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.4);
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+}
+
+.panel-title{
+    color:#777;
+    font-size:10px;
+    letter-spacing:6px;
+    margin-bottom:35px;
+}
+
+.item{
+    display:block;
+
+    padding:21px 0;
+
+    border-bottom:
+      1px solid rgba(255,255,255,.12);
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:15px;
+    letter-spacing:3px;
+
+    transition:.25s;
+}
+
+.item:hover{
+    padding-left:12px;
+
+    text-shadow:
+      0 0 10px #00d9ff,
+      0 0 20px #ff00d9;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    header{
+        height:64px;
+        padding:0 16px;
+    }
+
+    .logo{
+        font-size:10px;
+        letter-spacing:4px;
+    }
+
+    .menu{
+        width:40px;
+        height:40px;
+    }
+
+    .degree{
+        bottom:15%;
+        font-size:8px;
+        letter-spacing:5px;
+    }
+
+    .hint{
+        bottom:18px;
+        font-size:7px;
+        letter-spacing:2px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="space">
+
+    <div class="stars"></div>
+    <div class="stars2"></div>
+
+    <header>
+
+        <div class="logo">
+            M POPAL TECH
+        </div>
+
+        <button class="menu" id="menuButton">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
+
+    <div id="earth-container">
+
+        <div class="aura"></div>
+
+        <div id="earth"></div>
+
+        <div class="edge"></div>
+
+        <div class="ring"></div>
+
+        <div class="ring2"></div>
+
+        <div class="degree">
+            360° EARTH
+        </div>
+
+    </div>
+
+    <div class="hint">
+        TOUCH • DRAG • ROTATE • PINCH TO ZOOM
+    </div>
+
+</div>
+
+
+<!-- MENU -->
+
+<div class="panel" id="panel">
+
+    <button class="close" id="closeButton">
+        ×
+    </button>
+
+    <div class="panel-title">
+        M POPAL TECH
+    </div>
+
+    <a class="item" href="#" id="backButton">
+        BACK
+    </a>
+
+    <a class="item" href="#">
+        NONE
+    </a>
+
+    <a class="item" href="#">
+        360° EXPERIENCE
+    </a>
+
+</div>
+
+
+<!-- THREE.JS -->
+
+<script type="module">
+
+import * as THREE from
+'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+
+import { OrbitControls } from
+'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js';
+
+
+/* =========================================
+   SCENE
+========================================= */
+
+const container =
+document.getElementById("earth");
+
+
+const scene =
+new THREE.Scene();
+
+
+/* =========================================
+   CAMERA
+========================================= */
+
+const camera =
+new THREE.PerspectiveCamera(
+    45,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    100
+);
+
+camera.position.set(
+    0,
+    0,
+    3.2
+);
+
+
+/* =========================================
+   RENDERER
+========================================= */
+
+const renderer =
+new THREE.WebGLRenderer({
+    antialias:true,
+    alpha:true
+});
+
+renderer.setPixelRatio(
+    Math.min(window.devicePixelRatio,2)
+);
+
+renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
+
+renderer.outputColorSpace =
+THREE.SRGBColorSpace;
+
+container.appendChild(
+    renderer.domElement
+);
+
+
+/* =========================================
+   EARTH
+========================================= */
+
+const geometry =
+new THREE.SphereGeometry(
+    1,
+    128,
+    128
+);
+
+
+/* BLUE BASE */
+
+const material =
+new THREE.MeshPhongMaterial({
+
+    color:0x087fae,
+
+    shininess:80,
+
+    specular:0x88eaff
+
+});
+
+
+const earth =
+new THREE.Mesh(
+    geometry,
+    material
+);
+
+scene.add(earth);
+
+
+/* =========================================
+   MAP TEXTURE
+========================================= */
+
+const loader =
+new THREE.TextureLoader();
+
+
+loader.load(
+    "earth-map.svg",
+
+    function(texture){
+
+        texture.colorSpace =
+        THREE.SRGBColorSpace;
+
+        texture.wrapS =
+        THREE.RepeatWrapping;
+
+        texture.wrapT =
+        THREE.ClampToEdgeWrapping;
+
+        material.map =
+        texture;
+
+        material.color.setHex(
+            0x087fae
+        );
+
+        material.needsUpdate = true;
+
+    },
+
+    undefined,
+
+    function(){
+
+        console.log(
+            "earth-map.svg could not be loaded."
+        );
+
+    }
+);
+
+
+/* =========================================
+   ATMOSPHERE
+========================================= */
+
+const atmosphereGeometry =
+new THREE.SphereGeometry(
+    1.055,
+    96,
+    96
+);
+
+const atmosphereMaterial =
+new THREE.MeshBasicMaterial({
+
+    color:0x00cfff,
+
+    transparent:true,
+
+    opacity:.10,
+
+    side:THREE.BackSide
+
+});
+
+const atmosphere =
+new THREE.Mesh(
+    atmosphereGeometry,
+    atmosphereMaterial
+);
+
+scene.add(atmosphere);
+
+
+/* =========================================
+   WHITE OUTER GLOW
+========================================= */
+
+const glowGeometry =
+new THREE.SphereGeometry(
+    1.075,
+    64,
+    64
+);
+
+const glowMaterial =
+new THREE.MeshBasicMaterial({
+
+    color:0xffffff,
+
+    transparent:true,
+
+    opacity:.035,
+
+    side:THREE.BackSide
+
+});
+
+const glow =
+new THREE.Mesh(
+    glowGeometry,
+    glowMaterial
+);
+
+scene.add(glow);
+
+
+/* =========================================
+   LIGHTS
+========================================= */
+
+const ambient =
+new THREE.AmbientLight(
+    0x78eaff,
+    1.8
+);
+
+scene.add(ambient);
+
+
+const mainLight =
+new THREE.DirectionalLight(
+    0xffffff,
+    3.5
+);
+
+mainLight.position.set(
+    -3,
+    2,
+    4
+);
+
+scene.add(mainLight);
+
+
+const blueLight =
+new THREE.PointLight(
+    0x00cfff,
+    4,
+    8
+);
+
+blueLight.position.set(
+    -3,
+    0,
+    3
+);
+
+scene.add(blueLight);
+
+
+const pinkLight =
+new THREE.PointLight(
+    0xff00cc,
+    2.2,
+    7
+);
+
+pinkLight.position.set(
+    3,
+    -2,
+    1
+);
+
+scene.add(pinkLight);
+
+
+/* =========================================
+   360° TOUCH / MOUSE
+========================================= */
+
+const controls =
+new OrbitControls(
+    camera,
+    renderer.domElement
+);
+
+controls.enableDamping =
+true;
+
+controls.dampingFactor =
+0.055;
+
+controls.enablePan =
+false;
+
+controls.enableZoom =
+true;
+
+controls.minDistance =
+2.1;
+
+controls.maxDistance =
+5;
+
+controls.rotateSpeed =
+0.65;
+
+controls.zoomSpeed =
+0.8;
+
+
+/* =========================================
+   KEEP EARTH CENTERED
+========================================= */
+
+controls.target.set(
+    0,
+    0,
+    0
+);
+
+
+/* =========================================
+   EXTRA SLOW ROTATION
+========================================= */
+
+let idleRotation =
+0.0008;
+
+
+function animate(){
+
+    requestAnimationFrame(
+        animate
+    );
+
+    /*
+       Very slow automatic rotation.
+       Touching/dragging the Earth
+       remains fully manual.
+    */
+
+    if(
+        !controls.state ||
+        controls.state === -1
+    ){
+        earth.rotation.y +=
+        idleRotation;
+    }
+
+    controls.update();
+
+    renderer.render(
+        scene,
+        camera
+    );
+
+}
+
+animate();
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+window.addEventListener(
+"resize",
+function(){
+
+    camera.aspect =
+    window.innerWidth /
+    window.innerHeight;
+
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
+    );
+
+    renderer.setPixelRatio(
+        Math.min(
+            window.devicePixelRatio,
+            2
+        )
+    );
+
+}
+);
+
+
+/* =========================================
+   MENU
+========================================= */
+
+const menuButton =
+document.getElementById(
+    "menuButton"
+);
+
+const panel =
+document.getElementById(
+    "panel"
+);
+
+const closeButton =
+document.getElementById(
+    "closeButton"
+);
+
+const backButton =
+document.getElementById(
+    "backButton"
+);
+
+
+menuButton.onclick =
+function(){
+
+    panel.classList.add(
+        "open"
+    );
+
+};
+
+
+closeButton.onclick =
+function(){
+
+    panel.classList.remove(
+        "open"
+    );
+
+};
+
+
+backButton.onclick =
+function(e){
+
+    e.preventDefault();
+
+    panel.classList.remove(
+        "open"
+    );
+
+};
+
+
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+    if(e.key === "Escape"){
+
+        panel.classList.remove(
+            "open"
+        );
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
